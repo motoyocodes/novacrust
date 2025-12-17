@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Novacrust - Crypto Conversion Application
 
-## Getting Started
+## Overview
 
-First, run the development server:
+Novacrust is a responsive web application built with Next.js and Tailwind CSS that simulates a seamless cryptocurrency-to-fiat exchange flow. It guides users through selecting tokens, entering bank details, providing contact information, and finalizing transactions.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Setup Instructions
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Prerequisites
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Node.js (v18 or higher)
+- npm or yarn
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Installation
 
-## Learn More
+1.  **Clone the repository:**
 
-To learn more about Next.js, take a look at the following resources:
+    ```bash
+    git clone https://github.com/motoyocodes/novacrust.git
+    cd novacrust
+    ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2.  **Install dependencies:**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+    ```bash
+    npm install
+    # or
+    yarn install
+    ```
 
-## Deploy on Vercel
+3.  **Run the development server:**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+    ```bash
+    npm run dev
+    ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+4.  **Access the application:**
+    Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## 🏗 Assumptions
+
+1.  **Mock Backend:** The application assumes no active backend connection. Exchange rates, wallet options, and bank lists are served via static local data (`data.ts`).
+2.  **Account Resolution:** For demonstration purposes, entering any 10-digit account number automatically resolves to the mock account name "ODUTUGA GBEKE".
+3.  **Single-Page Flow:** The application assumes a linear progression (Conversion -> Bank -> Contact -> Success).
+4.  **Mobile-First Design:** The UI is designed primarily for mobile interfaces but is centered and bounded for desktop viewing to maintain visual integrity.
+
+## Trade-offs
+
+1.  **State Management (useState):**
+
+    - **Decision:** Used React local state (`useState`) instead of a global store (Redux/Zustand) or URL query parameters.
+    - **Trade-off:** If the user refreshes the browser, their progress and entered data are lost. This was chosen to keep the application lightweight and reduce boilerplate for this MVP.
+
+2.  **Hardcoded Rates:**
+
+    - **Decision:** Currency conversion rates (e.g., USD to NGN) are static.
+    - **Trade-off:** Real-world applications require live API polling (e.g., Chainlink or CoinGecko) to ensure accurate pricing.
+
+3.  **Client-Side Validation:**
+
+    - **Decision:** Basic validation checks (e.g., disabling buttons if fields are empty).
+    - **Trade-off:** Does not include deep validation (like checking if an email is truly valid or if a bank account number matches a specific bank's algorithm).
+
+4.  **Asset Optimization:**
+    - **Decision:** Images are imported directly.
+    - **Trade-off:** In a larger production build, we would likely use a CDN or `next/image` more aggressively for performance optimization.
+
+## Project Structure
+
+- `app/` - Main application routes and pages.
+- `components/` - Reusable UI components (Header, ConversionForm).
+- `data/` - Static data files (Banks, Tokens, Wallets).
+- `types/` - TypeScript interface definitions.
+- `public/` - Static assets (Fonts, Images).
